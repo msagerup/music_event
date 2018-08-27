@@ -1,4 +1,7 @@
 import React, { Component } from 'react';
+import MyButton from '../utils/Button';
+
+import Zoom from 'react-reveal/Zoom';
 
 class Pricing extends Component {
   state = {
@@ -13,18 +16,34 @@ class Pricing extends Component {
       'https://www.ticketmaster.no/b',
       'https://www.ticketmaster.no/m',
       'https://www.ticketmaster.no/s'
-    ]
+    ],
+    delay: [500, 0, 500]
   };
 
   showBoxes = () =>
     this.state.prices.map((box, i) => (
-      <div className="pricing_item">
-        <div className="pricing_inner_wrapper">
-          <div className="pricing_title">{this.state.prices[i]}</div>
-          <div className="pricing_description">desc</div>
-          <div className="pricing_buttons">button</div>
+      <Zoom delay={this.state.delay[i]} key={i}>
+        <div className="pricing_item">
+          <div className="pricing_inner_wrapper">
+            <div className="pricing_title">
+              <span>${this.state.prices[i]}</span>
+            </div>
+            <div className="pricing_description">
+              <span>{this.state.desc[i]}</span>
+            </div>
+            <div className="princing_buttons">
+              <span>
+                <MyButton
+                  text="Purchase"
+                  bck="orange"
+                  color="#fff"
+                  link={this.state.linkto[i]}
+                />
+              </span>
+            </div>
+          </div>
         </div>
-      </div>
+      </Zoom>
     ));
 
   render() {
@@ -32,8 +51,7 @@ class Pricing extends Component {
       <div className="bck_black">
         <div className="center_wrapper pricing_section">
           <h2>Pricing</h2>
-          <div className="pricing_wrapper">boxes</div>
-          {this.showBoxes()}
+          <div className="pricing_wrapper">{this.showBoxes()}</div>
         </div>
       </div>
     );
